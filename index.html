@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>COVID-19 Spread</title>
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script src="https://code.highcharts.com/stock/highstock.js"></script>
+<script>
+    var Highstock = Highcharts;
+    Highcharts = null;
+</script>
+<script src="https://code.highcharts.com/maps/highmaps.js"></script>
+<script src="https://code.highcharts.com/mapdata/index.js?1"></script>
+<script src="https://code.highcharts.com/mapdata/custom/world.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"></script>
+<script src="https://code.highcharts.com/maps/modules/drilldown.js"></script>
+
+<!-- MultiSelect dropdown is taken from https://github.com/nobleclem/jQuery-MultiSelect -->
+<script src="https://springstubbe.us/projects/jquery-multiselect/scripts/index.js"></script>
+<link href="https://springstubbe.us/projects/jquery-multiselect/styles/index.css" rel="stylesheet">
+
+<link href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet">
+<link href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+
+<!-- Bootstrap -->
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+<!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script> -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script> -->
+
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> -->
+<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script> -->
+<!-- End Bootstrap -->
+
+
+
+<style>
+  .row {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+  h1 {
+    text-align: center;
+  }
+  .top-margin {
+    margin: 50px;
+  }
+  .dropdown{
+    display: none;
+  }
+</style>
+</head>
+<body>
+
+
+  <div class="container">
+
+    <!-- As a heading -->
+    <nav class="navbar navbar-light bg-light">
+      <span class="navbar-brand mb-0 h1">
+        <h1> Coronavirus disease 2019 (COVID-19) </h1>
+      </span>
+    </nav>
+
+    <div class="row top-margin">
+      <div class="col-4">
+        <div id="chart-container3">
+          Loading...
+        </div>
+      </div>
+      <div class="col-8">
+        <div id="map-container">
+
+          <div class="d-flex justify-content-center">
+            <div class="spinner-border" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+          </div>
+
+        </div>       
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-4 dropdown">
+        Select Countries From the Dropdown
+      </div>
+      <div class="col-8">
+        <div id="select-country"></div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-4">
+        <div id="chart-container2"></div> 
+      </div>
+      <div class="col-8">
+        <div id="chart-container1"></div> 
+      </div>
+    </div>
+  </div>
+
+  <script src="./dist/covid-min.js"></script>
+<script>
+
+</script>
+</body>
+</html>
