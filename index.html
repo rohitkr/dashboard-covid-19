@@ -40,18 +40,24 @@
 
 <style>
   .row {
-    margin-top: 10px;
-    margin-bottom: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
   }
   h1 {
     text-align: center;
   }
   .top-margin {
-    margin: 50px;
+    /* margin: 50px; */
   }
+
   .dropdown{
     display: none;
   }
+
+  .container {
+    height: 100vh;
+    overflow: auto;
+  }  
 </style>
 </head>
 <body>
@@ -60,13 +66,13 @@
   <div class="container">
 
     <!-- As a heading -->
-    <nav class="navbar navbar-light bg-light">
+    <nav class="navbar navbar-light bg-light" style="height: 10vh; ">
       <span class="navbar-brand mb-0 h1">
         <h1> Coronavirus disease 2019 (COVID-19) </h1>
       </span>
     </nav>
-
-    <div class="row top-margin">
+    
+    <div class="row map-main-container" style="height: 40vh; ">
       <div class="col-4">
         <div id="chart-container3">
           Loading...
@@ -85,16 +91,16 @@
       </div>
     </div>
 
-    <div class="row">
-      <div class="col-4 dropdown">
+    <div class="row" style="height: 10vh;">
+      <div class="col">
         Select Countries From the Dropdown
       </div>
-      <div class="col-8">
+      <div class="col">
         <div id="select-country"></div>
       </div>
     </div>
 
-    <div class="row">
+    <div class="row chart-main-container" style="height: 40vh; ">
       <div class="col-4">
         <div id="chart-container2"></div> 
       </div>
@@ -104,7 +110,7 @@
     </div>
   </div>
 
-  <script src="./dist/covid-min.js"></script>
+  <script src="./dist/covid.js"></script>
 <script>
 
 </script>
