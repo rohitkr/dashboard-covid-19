@@ -3,7 +3,7 @@ var covid19Data,mapMetaData={fo:"FO","faroe islands":"FO",um:"UM","united states
                             Confirmed: <b>{point.value} </b><br/>
                             Deaths: <b>${a.point.deaths} </b><br/>
                             Recovered: <b>${a.point.recovered} </b><br/>
-                          `},dataLabels:{enabled:!1,formatter:function(){return this.point.properties&&this.point.properties["hc-a2"]||this.point.name}}})})}},drillup:function(){this.setTitle(null,{text:""})}}},mapNavigation:{enabled:!0,enableMouseWheelZoom:!1,buttonOptions:{verticalAlign:"bottom"},enableDoubleClickZoomTo:!0},title:{text:""},subtitle:{text:""},colorAxis:{min:0},tooltip:{pointFormat:`
+                          `},dataLabels:{enabled:!1,formatter:function(){return this.point.properties&&this.point.properties["hc-a2"]||this.point.name}}})})}},drillup:function(){this.setTitle(null,{text:""})}}},mapNavigation:{enabled:!0,enableMouseWheelZoom:!1,buttonOptions:{verticalAlign:"bottom"},enableDoubleClickZoomTo:!0},title:{text:""},subtitle:{text:""},colorAxis:{min:1,type:"logarithmic",minColor:"#d8dde6",maxColor:"#113880",_stops:[[0,"#0e46a1"],[.67,"#5c82bf"],[1,"#abbdd9"]]},tooltip:{pointFormat:`
         <b>{point.name}</b> <br/>
         Confirmed: <b>{point.value} </b><br/>
         Deaths: <b>{point.deaths} </b><br/>

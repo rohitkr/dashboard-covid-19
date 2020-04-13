@@ -43,6 +43,7 @@
     display: block;
     height: 80px;
     box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 4px;
+    background-color: rgb(32, 59, 107);
     text-align: center;
     
   }
@@ -69,15 +70,72 @@
     /* height: 100vh; */
     overflow: auto;
   }  
+
+  .float {
+    min-height: 0px;
+    min-width: 0px;
+    display: flex;
+    flex-direction: column;
+    -webkit-box-pack: initial;
+    justify-content: initial;
+    -webkit-box-align: initial;
+    align-items: initial;
+    position: absolute;
+    bottom: 260px;
+    left: 100px;
+    z-index: 10;
+    width: 160px;
+    transform: scale(0.7) translate3d(0px, 50px, 0px);
+    transform-origin: left bottom;
+    flex: 1 1 auto;
+    padding: 20px;
+    background: rgb(255, 255, 255);
+    gap: 20px;
+    border-radius: 5px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgb(204, 204, 204);
+    border-image: initial;
+    text-align: right;
+  }
+  .float span {
+    font-size: 20px;
+    font-weight: bold;
+  }
+  .float {
+    font-size: 11px;
+    text-transform: lowercase;
+  }
 </style>
 </head>
 <body>
 
-  <nav class="navbar navbar-light bg-light sticky-top" style="">
-    <span class="navbar-brand mb-0 h1" style="font-size: 40px;">
+  <nav class="navbar navbar-light bg-light sticky-top" style="background: cadetblue;">
+    <span class="navbar-brand mb-0 h1" style="font-size: 35px;">
       Coronavirus disease 2019 (COVID-19)
     </span>
   </nav>
+
+  <!-- <div class="float">
+    <div>
+      <span id="total-confirmed">
+        55000000
+      </span>
+      <p>Confirmed Cases</p>
+    </div>
+    
+    <div>
+      <span id="total-deaths">
+      </span>
+      <p>Deaths</p>
+    </div>
+    
+    <div>
+      <span id="total-recovered">
+      </span>
+      <p>Recovered</p>
+    </div> 
+  </div> -->
 
   <div class="row">
     <div class="col">
