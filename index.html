@@ -40,8 +40,11 @@
 
 <style>
   .navbar {
-    display:block;
+    display: block;
+    height: 80px;
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 4px;
     text-align: center;
+    
   }
   .row {
     padding-top: 10px;
@@ -51,7 +54,11 @@
     text-align: center;
   }
   .top-margin {
-    /* margin: 50px; */
+    margin-top: 24px;
+  }
+
+  .padding {
+    padding: 20px;
   }
 
   .dropdown {
@@ -59,43 +66,29 @@
   }
 
   .container {
-    height: 100vh;
+    /* height: 100vh; */
     overflow: auto;
   }  
 </style>
 </head>
 <body>
 
+  <nav class="navbar navbar-light bg-light sticky-top" style="">
+    <span class="navbar-brand mb-0 h1" style="font-size: 40px;">
+      Coronavirus disease 2019 (COVID-19)
+    </span>
+  </nav>
+
+  <div class="row">
+    <div class="col">
+      <div id="map-container">
+      </div>
+    </div>
+  </div>
 
   <div class="container">
 
-    <!-- As a heading -->
-    <nav class="navbar navbar-light bg-light" style="">
-      <span class="navbar-brand mb-0 h1">
-        <b>Coronavirus disease 2019 (COVID-19)</b>
-      </span>
-    </nav>
-    
-    <div class="row map-main-container" style="height: 40vh; ">
-      <div class="col-4">
-        <div id="chart-container3">
-          Loading...
-        </div>
-      </div>
-      <div class="col-8">
-        <div id="map-container">
-
-          <div class="d-flex justify-content-center">
-            <div class="spinner-border" role="status">
-              <span class="sr-only">Loading...</span>
-            </div>
-          </div>
-
-        </div>       
-      </div>
-    </div>
-
-    <div class="row" style="">
+    <div class="row top-margin padding">
       <div class="col-4 dropdown">
         <b>Select Countries from the Dropdown</b>
       </div>
@@ -104,17 +97,23 @@
       </div>
     </div>
 
-    <div class="row chart-main-container" style="height: 45vh; ">
-      <div class="col-4">
-        <div id="chart-container2"></div> 
+    <div class="row top-margin padding" style="height: 40vh; ">
+      <div class="col">
+        <div id="chart-container2"></div>
       </div>
-      <div class="col-8">
+      <div class="col">
+        <div id="chart-container3"></div>
+      </div>
+    </div>
+
+    <div class="row chart-main-container top-margin padding" style="height: 45vh; ">
+      <div class="col">
         <div id="chart-container1"></div> 
       </div>
     </div>
   </div>
 
-  <script src="./dist/covid-min.js"></script>
+  <script src="./dist/covid.js"></script>
 <script>
 
 </script>
