@@ -563,7 +563,6 @@ const parseTopFiveData = (data, count = 5) => {
   });
 
   unsortedData.forEach((val) => {
-    console.log(val.country, val.confirmed);
     categories.push(val.country);
     chartFinalData[0].data.push(val.confirmed); // confirmed
     chartFinalData[1].data.push(val.recovered); // recovered
@@ -598,7 +597,7 @@ const createSelectBox = (data, id, preSelected) => {
     options.push({
       name : value,
       value : value,
-      checked: (preSelected?.indexOf(value) >= 0)
+      checked: (preSelected && preSelected.indexOf(value) >= 0)
     });
   }
 
@@ -612,8 +611,6 @@ const createSelectBox = (data, id, preSelected) => {
       search: 'Search Country'
     },
     onOptionClick: ( element, option ) => {
-
-      console.log('called...', $(element).val(), option);
       renderChart(parseTopFiveData(covid19Data, $(element).val()), 'chart-container2');
       renderStockChart(parseChartData(covid19Data, $(element).val()), 'chart-container1');
     }
@@ -644,7 +641,12 @@ async function render () {
 }
 
 function renderImpactChart (data, container, country, w, h) {
-  let dataObj = data;
+  let dataObj = data,
+  isMobile =  /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+  if (isMobile) {
+    w = w/2;
+    h = h;
+  }
   renderChart({
     chart: {
       // height:  $('.chart-main-container').height() - 10,
@@ -678,7 +680,7 @@ function renderImpactChart (data, container, country, w, h) {
 } 
 
 function renderMap (mapData) {
-  console.log($(window).height() - 50)
+  // console.log('mapH: ', $(window).height())
   Highcharts.mapChart('map-container', {
     chart: {
       // height:  $('.map-main-container').height() - 10,
@@ -888,7 +890,8 @@ function renderChart (data, container) {
 function renderStockChart(data, container) {
   Highstock.stockChart(container, Object.assign({
     chart: {
-      height:  $('.chart-main-container').height() - 10
+      // height:  $('.chart-main-container').height() - 10
+      height:  '400'
     },
     rangeSelector: {
         selected: 4

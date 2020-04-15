@@ -41,7 +41,7 @@
 <style>
   .navbar {
     display: block;
-    height: 80px;
+    /* height: 80px; */
     box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 4px;
     background-color: rgb(32, 59, 107);
     text-align: center;
@@ -63,11 +63,11 @@
 
   .dropdown {
     display: none;
+    overflow:hidden;
   }
 
   .container {
-    /* height: 100vh; */
-    overflow: auto;
+    height: 1100px;
   }  
 
   .float {
@@ -80,10 +80,10 @@
     -webkit-box-align: initial;
     align-items: initial;
     position: absolute;
-    bottom: 100px;
+    bottom: 130px;
     left: 50px;
     z-index: 10;
-    width: 460px;
+    /* width: "50%"; */
     height: 240px;
     transform: scale(0.7) translate3d(0px, 50px, 0px);
     transform-origin: left bottom;
@@ -112,32 +112,23 @@
       /* background-color: #5779bd;  */
       /* background-color: #4b68a3;  */
       background-color: #314670; 
-  }   
+  }
+  
 </style>
 </head>
 <body>
 
 
+  <div class="container-fluid">
   <!-- Image and text -->
-  <nav class="navbar navbar-dark navbar-custom sticky-top" style="">
-    <a class="navbar-brand" href="#">
-      
-      <span class="navbar-brand mb-0 h1" style="font-size: 30px;">
-        <img src="https://www.pharmaceutical-business-review.com/wp-content/uploads/2020/03/Corona.png" 
-        width="50" height="50" class="d-inline-block align-top" alt="">
+  <!-- <nav class="navbar navbar-dark navbar-custom sticky-top"> -->
+  <nav class="navbar navbar-default navbar-dark navbar-inverse sticky-top" role="navigation">
+      <span class="navbar-brand mb-0 h1">
+        <img src="https://www.pharmaceutical-business-review.com/wp-content/uploads/2020/03/Corona.png" width="50" height="50" class="d-inline-block align-top" alt="">
         Coronavirus disease (COVID-19)
       </span>
     </a>
   </nav>
-
-
-  <!-- <nav class="navbar navbar-dark navbar-custom sticky-top" style=""> -->
-  <!-- <nav class="navbar navbar-light bg-light sticky-top" style="background: cadetblue;"> -->
-  <!-- <nav class="navbar navbar-dark bg-success sticky-top" style=""> -->
-    <!-- <span class="navbar-brand mb-0 h1" style="font-size: 30px;"> -->
-      <!-- Coronavirus disease 2019 (COVID-19) -->
-    <!-- </span> -->
-  <!-- </nav> -->
 
   <div class="float">
     <div id='chart-container3'> </div>
@@ -149,28 +140,26 @@
       </div>
     </div>
   </div>
+</div>
 
   <div class="container">
 
     <div class="row top-margin padding">
       <div class="col-4 dropdown">
-        <b>Select Countries from the Dropdown</b>
+        Select Countries from the Dropdown
       </div>
       <div class="col-8">
         <div id="select-country"></div>
       </div>
     </div>
 
-    <div class="row top-margin padding" style="height: 40vh;">
+    <div class="row top-margin padding" style="height: 400px;">
       <div class="col">
         <div id="chart-container2"></div>
       </div>
-      <!-- <div class="col">
-        <div id="chart-container3"></div>
-      </div> -->
     </div>
 
-    <div class="row chart-main-container top-margin padding" style="height: 45vh; ">
+    <div class="row chart-main-container top-margin padding" style="height: 400px; ">
       <div class="col">
         <div id="chart-container1"></div> 
       </div>

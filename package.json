@@ -9,5 +9,11 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "@vaadin/vaadin": "^15.0.4"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0"
+  }
 }
