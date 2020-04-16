@@ -1,3 +1,7 @@
+"use strict";
+
+function _instanceof(left, right) { if (right != null && typeof Symbol !== "undefined" && right[Symbol.hasInstance]) { return !!right[Symbol.hasInstance](left); } else { return left instanceof right; } }
+
 var mapMetaData = {
   "fo": "FO",
   "faroe islands": "FO",
@@ -438,101 +442,103 @@ var mapMetaData = {
   "np": "NP",
   "nepal": "NP"
 },
-  mapBackTrack = {
-    US: "United States of America"
-  },
-  covid19Data,
-  consolidatedObj = {
-    confirmed: 0,
-    deaths: 0,
-    recovered: 0
-  };
+    mapBackTrack = {
+  US: "United States of America"
+},
+    covid19Data,
+    consolidatedObj = {
+  confirmed: 0,
+  deaths: 0,
+  recovered: 0
+};
 
-const getDataFromServer = async (url) => {
-  return fetch(url).then(data => data.json());
-}
+var getDataFromServer = async function getDataFromServer(url) {
+  return fetch(url).then(function (data) {
+    return data.json();
+  });
+};
 
-const parseMapData = data => {
-  let mapData = [],
-    mapObj = {},
-    name;
+var parseMapData = function parseMapData(data) {
+  var mapData = [],
+      mapObj = {},
+      name;
 
-  for (let countryName in data) {
-    name = mapMetaData[countryName.toLowerCase()] || '';
-    // mapData.push([name.toLowerCase(), data[countryName][data[countryName].length - 1].confirmed ]);
+  for (var countryName in data) {
+    name = mapMetaData[countryName.toLowerCase()] || ''; // mapData.push([name.toLowerCase(), data[countryName][data[countryName].length - 1].confirmed ]);
+
     mapData.push({
-        "hc-key": name.toLowerCase(),
-        value: data[countryName][data[countryName].length - 1].confirmed,
-        confirmed: data[countryName][data[countryName].length - 1].confirmed,
-        deaths: data[countryName][data[countryName].length - 1].deaths,
-        recovered: data[countryName][data[countryName].length - 1].recovered,
-        drilldown: name.toLowerCase(),
-        countryName: countryName
-      });
+      "hc-key": name.toLowerCase(),
+      value: data[countryName][data[countryName].length - 1].confirmed,
+      confirmed: data[countryName][data[countryName].length - 1].confirmed,
+      deaths: data[countryName][data[countryName].length - 1].deaths,
+      recovered: data[countryName][data[countryName].length - 1].recovered,
+      drilldown: name.toLowerCase(),
+      countryName: countryName
+    });
   }
 
   return mapData;
-}
+};
 
-const parseChartData = (data, countries) => {
-  let chartData = [];
-
-  countries.forEach((country) => {
-    let dataObj = {name: "", data: []};
+var parseChartData = function parseChartData(data, countries) {
+  var chartData = [];
+  countries.forEach(function (country) {
+    var dataObj = {
+      name: "",
+      data: []
+    };
     dataObj.name = country;
-    data[country].forEach((val) => {
-      dataObj.data.push([+ new Date(val.date), val.confirmed]);
+    data[country].forEach(function (val) {
+      dataObj.data.push([+new Date(val.date), val.confirmed]);
     });
     chartData.push(dataObj);
   });
-
   return {
     title: {
-        text: 'Spread velocity in different countries'
+      text: 'Spread velocity in different countries'
     },
     series: chartData
   };
-}
+}; // Top Five countries affeceted by Covid-19
 
-// Top Five countries affeceted by Covid-19
-const parseTopFiveData = (data, count = 5) => {
-  let chartData = [],
-    chartFinalData = [{
-      name: 'Confirmed',
-      color: 'rgb(0, 82, 180)',
-      pointPlacement: -0.4,
-      data: []
-    }, {
-      name: 'Recovered',
-      color: 'rgb(255, 217, 68)',
-      pointPlacement: -0.2,
-      data: []
-    }, {
-      name: 'Deaths',
-      color: 'rgb(215, 0, 38)',
-      data: []
-    }],
-    categories = [],
-    unsortedData = [];
 
-  // 0 = country, 1 = confirmed, 2 = deaths, 3 = recovered
+var parseTopFiveData = function parseTopFiveData(data) {
+  var count = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 5;
+  var chartData = [],
+      chartFinalData = [{
+    name: 'Confirmed',
+    color: 'rgb(0, 82, 180)',
+    pointPlacement: -0.4,
+    data: []
+  }, {
+    name: 'Recovered',
+    color: 'rgb(255, 217, 68)',
+    pointPlacement: -0.2,
+    data: []
+  }, {
+    name: 'Deaths',
+    color: 'rgb(215, 0, 38)',
+    data: []
+  }],
+      categories = [],
+      unsortedData = []; // 0 = country, 1 = confirmed, 2 = deaths, 3 = recovered
+
   for (var country in data) {
     var currentData = data[country][data[country].length - 1];
     chartData.push([country, currentData.confirmed, currentData.deaths, currentData.recovered]);
   }
 
-  chartData.sort((val1, val2) => {
+  chartData.sort(function (val1, val2) {
     // calculateSum
     consolidatedObj.confirmed += val1[1];
     consolidatedObj.deaths += val1[2];
     consolidatedObj.recovered += val1[3];
-
     return val1[1] > val2[1] ? -1 : 1;
   });
 
-  if (count instanceof Array) {
+  if (_instanceof(count, Array)) {
     for (var i = 0; i < count.length; i++) {
-      let val = data[count[i]];
+      var val = data[count[i]];
       val = val[val.length - 1];
       unsortedData.push({
         country: count[i],
@@ -543,12 +549,12 @@ const parseTopFiveData = (data, count = 5) => {
     }
   } else {
     for (var i = 0; i < count; i++) {
-      let val = chartData[i];
+      var _val = chartData[i];
       unsortedData.push({
-        country: val[0],
-        confirmed: val[1],
-        recovered: val[3],
-        deaths: val[2]
+        country: _val[0],
+        confirmed: _val[1],
+        recovered: _val[3],
+        deaths: _val[2]
       });
     }
   }
@@ -557,96 +563,88 @@ const parseTopFiveData = (data, count = 5) => {
   chartFinalData[0].data = [];
   chartFinalData[1].data = [];
   chartFinalData[2].data = [];
-
-  unsortedData.sort((a, b) => {
-    return (a.confirmed < b.confirmed) ? 1 : -1;
+  unsortedData.sort(function (a, b) {
+    return a.confirmed < b.confirmed ? 1 : -1;
   });
-
-  unsortedData.forEach((val) => {
+  unsortedData.forEach(function (val) {
     categories.push(val.country);
     chartFinalData[0].data.push(val.confirmed); // confirmed
+
     chartFinalData[1].data.push(val.recovered); // recovered
+
     chartFinalData[2].data.push(val.deaths); // deaths  
   });
-
   return {
     chart: {
-      height:  $('.chart-main-container').height() - 10,
+      height: $('.chart-main-container').height() - 10,
       type: 'column'
     },
     title: {
-        text: 'Confirmed vs Death vs Recovered'
+      text: 'Confirmed vs Death vs Recovered'
     },
     plotOptions: {
       series: {
-          grouping: false,
-          borderWidth: 0
+        grouping: false,
+        borderWidth: 0
       }
     },
     series: chartFinalData,
     xAxis: {
-      categories
+      categories: categories
     }
   };
-}
+};
 
-const createSelectBox = (data, id, preSelected) => {
-  let options = [];
+var createSelectBox = function createSelectBox(data, id, preSelected) {
+  var options = [];
 
-  for(let value in data) {
+  for (var value in data) {
     options.push({
-      name : value,
-      value : value,
-      checked: (preSelected && preSelected.indexOf(value) >= 0)
+      name: value,
+      value: value,
+      checked: preSelected && preSelected.indexOf(value) >= 0
     });
   }
 
-  $("#select-country").append($(`<select id=${id} multiple="multiple" ></select>`));
-
-  $(`#${id}`).multiselect({
-    columns : 3,
-    search : true,
+  $("#select-country").append($("<select id=".concat(id, " multiple=\"multiple\" ></select>")));
+  $("#".concat(id)).multiselect({
+    columns: 3,
+    search: true,
     texts: {
       placeholder: 'Select Country',
       search: 'Search Country'
     },
-    onOptionClick: ( element, option ) => {
+    onOptionClick: function onOptionClick(element, option) {
       renderChart(parseTopFiveData(covid19Data, $(element).val()), 'chart-container2');
       renderStockChart(parseChartData(covid19Data, $(element).val()), 'chart-container1');
     }
   });
+  $("#".concat(id)).multiselect('loadOptions', options);
+};
 
-  $(`#${id}`).multiselect('loadOptions', options);
-}
-
-async function render () {
+async function render() {
   // var mapData = await getDataFromServer("https://coronavirus-19-api.herokuapp.com/countries");
   // confirmed, deaths, recovered
-  covid19Data = await getDataFromServer("https://pomber.github.io/covid19/timeseries.json");
-  // covid19Data = covidData;
+  covid19Data = await getDataFromServer("https://pomber.github.io/covid19/timeseries.json"); // covid19Data = covidData;
 
   $('.dropdown').show();
-
   renderMap(parseMapData(covid19Data));
   var topFiveCountriesData = parseTopFiveData(covid19Data);
   renderChart(topFiveCountriesData, 'chart-container2');
-
   createSelectBox(covid19Data, 'country-1', topFiveCountriesData.xAxis.categories);
-  
   renderStockChart(parseChartData(covid19Data, topFiveCountriesData.xAxis.categories), 'chart-container1');
-
   renderImpactChart(consolidatedObj, 'chart-container3', 'Worldwide', 410, 190);
-  
-
 }
 
-function renderImpactChart (data, container, country, w, h) {
-  let dataObj = data,
-  isMobile =  /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+function renderImpactChart(data, container, country, w, h) {
+  var dataObj = data,
+      isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
   if (isMobile) {
-    w = w/2;
+    w = w / 2;
     h = h;
   }
+
   renderChart({
     chart: {
       // height:  $('.chart-main-container').height() - 10,
@@ -655,7 +653,7 @@ function renderImpactChart (data, container, country, w, h) {
       type: 'column'
     },
     title: {
-        text: `Total Impact ${country}`
+      text: "Total Impact ".concat(country)
     },
     legend: {
       enabled: false
@@ -677,9 +675,9 @@ function renderImpactChart (data, container, country, w, h) {
       categories: ["Confirmed", "Recovered", "Deaths"]
     }
   }, container);
-} 
+}
 
-function renderMap (mapData) {
+function renderMap(mapData) {
   // console.log('mapH: ', $(window).height())
   Highcharts.mapChart('map-container', {
     chart: {
@@ -687,76 +685,68 @@ function renderMap (mapData) {
       height: $(window).height() - 120,
       map: 'custom/world',
       events: {
-        drilldown: function (e) {
-
+        drilldown: function drilldown(e) {
           if (!e.seriesOptions) {
             var chart = this,
-              countryName = e.point.countryName,
-              // mapKey = 'countries/' + e.point.drilldown + '-all',
-              mapKey = Highcharts.mapDataIndex.Countries[mapBackTrack[countryName] || countryName];
-              if (!mapKey) {
-                console.log(`Unable to load ${countryName}!`);
-                return;
-              }
-              mapKey = mapKey.replace(/\.js/, '');
-              // Handle error, the timeout is cleared on success
-              var fail = setTimeout(function () {
-                  if (!Highcharts.maps[mapKey]) {
-                    chart.showLoading('<i class="icon-frown"></i> Failed loading ' + e.point.name);
-                    fail = setTimeout(function () {
-                      chart.hideLoading();
-                    }, 1000);
-                  }
-              }, 3000);
+                countryName = e.point.countryName,
+                // mapKey = 'countries/' + e.point.drilldown + '-all',
+            mapKey = Highcharts.mapDataIndex.Countries[mapBackTrack[countryName] || countryName];
 
-              // Show the spinner
-              // Show loading
-              if (Highcharts.charts[0]) {
-                  Highcharts.charts[0].showLoading('<i class="fa fa-spinner fa-spin fa-2x"></i>');
-              }
-              // chart.showLoading('<i class="icon-spinner icon-spin icon-3x"></i>'); // Font Awesome spinner
-
-                // Load the drilldown map
-                $.getScript('https://code.highcharts.com/mapdata/' + mapKey + '.js', function () {
-
-                    data = Highcharts.geojson(Highcharts.maps[mapKey]);
-
-                    // Set a non-random bogus value
-                    $.each(data, function (i) {
-                        this.value = e.point.value;
-                    });
-
-                    // Render the chart
-                    renderImpactChart(covid19Data[countryName][covid19Data[countryName].length - 1], 'chart-container3', e.point.name, 410, 190);
-
-                    // Hide loading and add series
-                    chart.hideLoading();
-                    clearTimeout(fail);
-                    chart.addSeriesAsDrilldown(e.point, {
-                        name: ' ',
-                        data: data,
-                        tooltip: {
-                          pointFormat: `
-                            <b>${e.point.name}</b> <br/>
-                            Confirmed: <b>{point.value} </b><br/>
-                            Deaths: <b>${e.point.deaths} </b><br/>
-                            Recovered: <b>${e.point.recovered} </b><br/>
-                          `,
-                        },
-                        dataLabels: {
-                            enabled: false,
-                            formatter: function () {
-                              return (this.point.properties && this.point.properties['hc-a2']) || this.point.name;
-                            }
-                        }
-                    });
-                });
+            if (!mapKey) {
+              console.log("Unable to load ".concat(countryName, "!"));
+              return;
             }
 
+            mapKey = mapKey.replace(/\.js/, ''); // Handle error, the timeout is cleared on success
+
+            var fail = setTimeout(function () {
+              if (!Highcharts.maps[mapKey]) {
+                chart.showLoading('<i class="icon-frown"></i> Failed loading ' + e.point.name);
+                fail = setTimeout(function () {
+                  chart.hideLoading();
+                }, 1000);
+              }
+            }, 3000); // Show the spinner
+            // Show loading
+
+            if (Highcharts.charts[0]) {
+              Highcharts.charts[0].showLoading('<i class="fa fa-spinner fa-spin fa-2x"></i>');
+            } // chart.showLoading('<i class="icon-spinner icon-spin icon-3x"></i>'); // Font Awesome spinner
+            // Load the drilldown map
+
+
+            $.getScript('https://code.highcharts.com/mapdata/' + mapKey + '.js', function () {
+              data = Highcharts.geojson(Highcharts.maps[mapKey]); // Set a non-random bogus value
+
+              $.each(data, function (i) {
+                this.value = e.point.value;
+              }); // Render the chart
+
+              renderImpactChart(covid19Data[countryName][covid19Data[countryName].length - 1], 'chart-container3', e.point.name, 410, 190); // Hide loading and add series
+
+              chart.hideLoading();
+              clearTimeout(fail);
+              chart.addSeriesAsDrilldown(e.point, {
+                name: ' ',
+                data: data,
+                tooltip: {
+                  pointFormat: "\n                            <b>".concat(e.point.name, "</b> <br/>\n                            Confirmed: <b>{point.value} </b><br/>\n                            Deaths: <b>").concat(e.point.deaths, " </b><br/>\n                            Recovered: <b>").concat(e.point.recovered, " </b><br/>\n                          ")
+                },
+                dataLabels: {
+                  enabled: false,
+                  formatter: function formatter() {
+                    return this.point.properties && this.point.properties['hc-a2'] || this.point.name;
+                  }
+                }
+              });
+            });
+          }
         },
-        drillup: function () {
+        drillup: function drillup() {
           renderImpactChart(consolidatedObj, 'chart-container3', 'Worldwide', 410, 190);
-          this.setTitle(null, { text: '' });
+          this.setTitle(null, {
+            text: ''
+          });
         }
       }
     },
@@ -769,145 +759,127 @@ function renderMap (mapData) {
       enableDoubleClickZoomTo: true
     },
     title: {
-        text: ''
+      text: ''
     },
     subtitle: {
-        text: ''
+      text: ''
     },
     colorAxis: {
       min: 1,
       type: 'logarithmic',
       minColor: '#d8dde6',
       maxColor: '#113880',
-      _stops: [
-          [0, '#0e46a1'],
-          [0.67, '#5c82bf'],
-          [1, '#abbdd9']
-]
+      _stops: [[0, '#0e46a1'], [0.67, '#5c82bf'], [1, '#abbdd9']]
     },
     tooltip: {
-      pointFormat: `
-        <b>{point.name}</b> <br/>
-        Confirmed: <b>{point.value} </b><br/>
-        Deaths: <b>{point.deaths} </b><br/>
-        Recovered: <b>{point.recovered} </b><br/>
-      `
-      // pointFormat: 'Country: {point.name} <br/> Confirmed: <b>{point.value} </b><br/>',
+      pointFormat: "\n        <b>{point.name}</b> <br/>\n        Confirmed: <b>{point.value} </b><br/>\n        Deaths: <b>{point.deaths} </b><br/>\n        Recovered: <b>{point.recovered} </b><br/>\n      " // pointFormat: 'Country: {point.name} <br/> Confirmed: <b>{point.value} </b><br/>',
+
     },
     series: [{
-        data: mapData,
-        name: ' ',
-        states: {
-            hover: {
-                color: '#BADA55'
-            }
-        },
-        dataLabels: {
-            enabled: false,
-            formatter: function () {
-              return (this.point.properties && this.point.properties['hc-a2']) || this.point.name;
-            }
+      data: mapData,
+      name: ' ',
+      states: {
+        hover: {
+          color: '#BADA55'
         }
+      },
+      dataLabels: {
+        enabled: false,
+        formatter: function formatter() {
+          return this.point.properties && this.point.properties['hc-a2'] || this.point.name;
+        }
+      }
     }],
-
-      drilldown: {
-        activeDataLabelStyle: {
-            color: '#FFFFFF',
-            textDecoration: 'none',
-            textOutline: '1px #000000'
-        },
-        drillUpButton: {
-            relativeTo: 'spacingBox',
-            position: {
-                x: 0,
-                y: 60
-            }
+    drilldown: {
+      activeDataLabelStyle: {
+        color: '#FFFFFF',
+        textDecoration: 'none',
+        textOutline: '1px #000000'
+      },
+      drillUpButton: {
+        relativeTo: 'spacingBox',
+        position: {
+          x: 0,
+          y: 60
         }
+      }
     }
-
   });
 }
 
-function renderChart (data, container) {
+function renderChart(data, container) {
   Highcharts.chart(container, Object.assign({
     chart: {
-      height:  $('.chart-main-container').height() - 10,
+      height: $('.chart-main-container').height() - 10
     },
     title: {
-        text: ''
+      text: ''
     },
     subtitle: {
-        text: ''
+      text: ''
     },
-
     yAxis: {
-        title: {
-            text: 'Number of Cases'
-        }
+      title: {
+        text: 'Number of Cases'
+      }
     },
-
     xAxis: {
-        accessibility: {
-            rangeDescription: 'Time'
-        }
+      accessibility: {
+        rangeDescription: 'Time'
+      }
     },
-
     legend: {
-        layout: 'vertical',
-        align: 'right',
-        verticalAlign: 'middle'
+      layout: 'vertical',
+      align: 'right',
+      verticalAlign: 'middle'
     },
-
     plotOptions: {
-        series: {
-            label: {
-                connectorAllowed: false
-            },
-            // pointStart: 2010
-        }
+      series: {
+        label: {
+          connectorAllowed: false
+        } // pointStart: 2010
+
+      }
     },
-
     series: data,
-
     responsive: {
-        rules: [{
-            condition: {
-                maxWidth: 500
-            },
-            chartOptions: {
-                legend: {
-                    layout: 'horizontal',
-                    align: 'center',
-                    verticalAlign: 'bottom'
-                }
-            }
-        }]
+      rules: [{
+        condition: {
+          maxWidth: 500
+        },
+        chartOptions: {
+          legend: {
+            layout: 'horizontal',
+            align: 'center',
+            verticalAlign: 'bottom'
+          }
+        }
+      }]
     }
-
   }, data));
 }
 
 function renderStockChart(data, container) {
-  Highstock.stockChart(container, Object.assign({
+
+  console.log(Object.assign({
     chart: {
       // height:  $('.chart-main-container').height() - 10
-      height:  '400'
+      height: '400'
     },
     rangeSelector: {
-        selected: 4
+      selected: 4
     },
-
     yAxis: {
-        labels: {
-            formatter: function () {
-                return (this.value > 0 ? ' + ' : '') + this.value;
-            }
-        },
-        plotLines: [{
-            value: 0,
-            width: 2,
-            color: 'silver'
-        }]
+      labels: {
+        formatter: function formatter() {
+          return (this.value > 0 ? ' + ' : '') + this.value;
+        }
+      },
+      plotLines: [{
+        value: 0,
+        width: 2,
+        color: 'silver'
+      }]
     },
     scrollbar: {
       enabled: false
@@ -919,23 +891,61 @@ function renderStockChart(data, container) {
       enabled: false
     },
     plotOptions: {
-        series: {
-            compare: 'percent',
-            showInNavigator: true
-        }
+      series: {
+        compare: 'percent',
+        showInNavigator: true
+      }
     },
-
     tooltip: {
-        // pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.change}%)<br/>',
-        valueDecimals: 2,
-        split: true
+      // pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.change}%)<br/>',
+      valueDecimals: 2,
+      split: true
     },
+    series: []
+  }, data));
 
+  Highstock.stockChart(container, Object.assign({
+    chart: {
+      // height:  $('.chart-main-container').height() - 10
+      height: '400'
+    },
+    rangeSelector: {
+      selected: 4
+    },
+    yAxis: {
+      labels: {
+        formatter: function formatter() {
+          return (this.value > 0 ? ' + ' : '') + this.value;
+        }
+      },
+      plotLines: [{
+        value: 0,
+        width: 2,
+        color: 'silver'
+      }]
+    },
+    scrollbar: {
+      enabled: false
+    },
+    navigator: {
+      enabled: true
+    },
+    legend: {
+      enabled: false
+    },
+    plotOptions: {
+      series: {
+        compare: 'percent',
+        showInNavigator: true
+      }
+    },
+    tooltip: {
+      // pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.change}%)<br/>',
+      valueDecimals: 2,
+      split: true
+    },
     series: []
   }, data));
 }
 
-
-render();
-
-// window.addEventListener('resize', render);
+render(); // window.addEventListener('resize', render);
