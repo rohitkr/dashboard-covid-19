@@ -528,11 +528,14 @@ var parseTopFiveData = function parseTopFiveData(data) {
     chartData.push([country, currentData.confirmed, currentData.deaths, currentData.recovered]);
   }
 
-  chartData.sort(function (val1, val2) {
+  chartData.forEach((val) => {
     // calculateSum
-    consolidatedObj.confirmed += val1[1];
-    consolidatedObj.deaths += val1[2];
-    consolidatedObj.recovered += val1[3];
+    consolidatedObj.confirmed += val[1];
+    consolidatedObj.deaths += val[2];
+    consolidatedObj.recovered += val[3];
+  });
+  
+  chartData.sort(function (val1, val2) {
     return val1[1] > val2[1] ? -1 : 1;
   });
 
