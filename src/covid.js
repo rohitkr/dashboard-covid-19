@@ -692,6 +692,7 @@ function renderMap(mapData) {
           if (!e.seriesOptions) {
             var chart = this,
                 countryName = e.point.countryName,
+                data,
                 // mapKey = 'countries/' + e.point.drilldown + '-all',
             mapKey = Highcharts.mapDataIndex.Countries[mapBackTrack[countryName] || countryName];
 
@@ -719,6 +720,7 @@ function renderMap(mapData) {
 
 
             $.getScript('https://code.highcharts.com/mapdata/' + mapKey + '.js', function () {
+
               data = Highcharts.geojson(Highcharts.maps[mapKey]); // Set a non-random bogus value
 
               $.each(data, function (i) {
